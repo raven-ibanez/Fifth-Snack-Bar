@@ -98,7 +98,7 @@ Please confirm this order to proceed. Thank you for choosing Fifth Snack Bar! ðŸ
     `.trim();
 
     const encodedMessage = encodeURIComponent(orderDetails);
-    const messengerUrl = `https://m.me/61584928676308?text=${encodedMessage}`;
+    const messengerUrl = `https://m.me/887605727771882?text=${encodedMessage}`;
 
     window.open(messengerUrl, '_blank');
   };
