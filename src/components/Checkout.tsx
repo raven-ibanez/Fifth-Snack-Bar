@@ -98,7 +98,7 @@ Please confirm this order to proceed. Thank you for choosing Fifth Snack Bar! ðŸ
     `.trim();
 
     const encodedMessage = encodeURIComponent(orderDetails);
-    const messengerUrl = `https://m.me/61579693577478?text=${encodedMessage}`;
+    const messengerUrl = `https://m.me/61584928676308?text=${encodedMessage}`;
 
     window.open(messengerUrl, '_blank');
   };
@@ -212,8 +212,8 @@ Please confirm this order to proceed. Thank you for choosing Fifth Snack Bar! ðŸ
                       type="button"
                       onClick={() => setServiceType(option.value as ServiceType)}
                       className={`p-4 rounded-2xl border-2 transition-all duration-300 flex flex-col items-center justify-center gap-2 ${serviceType === option.value
-                          ? 'border-snack-blue bg-snack-blue text-white shadow-lg shadow-snack-blue/20'
-                          : 'border-gray-50 bg-gray-50 text-gray-400 hover:border-snack-blue/30 hover:bg-white'
+                        ? 'border-snack-blue bg-snack-blue text-white shadow-lg shadow-snack-blue/20'
+                        : 'border-gray-50 bg-gray-50 text-gray-400 hover:border-snack-blue/30 hover:bg-white'
                         }`}
                     >
                       <span className="text-2xl">{option.icon}</span>
@@ -279,8 +279,8 @@ Please confirm this order to proceed. Thank you for choosing Fifth Snack Bar! ðŸ
                             type="button"
                             onClick={() => setPickupTime(option.value)}
                             className={`p-4 rounded-xl border-2 transition-all duration-300 flex items-center justify-center gap-2 ${pickupTime === option.value
-                                ? 'border-snack-dark bg-snack-dark text-white'
-                                : 'border-gray-50 bg-gray-50 text-gray-400 hover:bg-white hover:border-snack-blue/30'
+                              ? 'border-snack-dark bg-snack-dark text-white'
+                              : 'border-gray-50 bg-gray-50 text-gray-400 hover:bg-white hover:border-snack-blue/30'
                               }`}
                           >
                             <Clock className="h-3 w-3" />
@@ -350,8 +350,8 @@ Please confirm this order to proceed. Thank you for choosing Fifth Snack Bar! ðŸ
                 onClick={handleProceedToPayment}
                 disabled={!isDetailsValid}
                 className={`w-full h-16 rounded-2xl font-outfit font-black uppercase tracking-widest text-lg transition-all duration-300 transform shadow-xl active:scale-95 ${isDetailsValid
-                    ? 'bg-snack-dark text-white hover:bg-snack-blue hover:scale-[1.02] shadow-snack-blue/20'
-                    : 'bg-gray-100 text-gray-300 cursor-not-allowed'
+                  ? 'bg-snack-dark text-white hover:bg-snack-blue hover:scale-[1.02] shadow-snack-blue/20'
+                  : 'bg-gray-100 text-gray-300 cursor-not-allowed'
                   }`}
               >
                 Proceed to Payment
@@ -389,8 +389,8 @@ Please confirm this order to proceed. Thank you for choosing Fifth Snack Bar! ðŸ
                 type="button"
                 onClick={() => setPaymentMethod(method.id as PaymentMethod)}
                 className={`p-6 rounded-2xl border-2 transition-all duration-300 flex items-center justify-between ${paymentMethod === method.id
-                    ? 'border-snack-blue bg-snack-accent text-snack-blue'
-                    : 'border-gray-50 bg-gray-50 text-gray-400 hover:border-snack-blue/30 hover:bg-white'
+                  ? 'border-snack-blue bg-snack-accent text-snack-blue'
+                  : 'border-gray-50 bg-gray-50 text-gray-400 hover:border-snack-blue/30 hover:bg-white'
                   }`}
               >
                 <div className="flex items-center space-x-4">
