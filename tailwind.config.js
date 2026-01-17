@@ -4,6 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
+        snack: {
+          blue: '#0080FF',
+          dark: '#000000',
+          accent: '#F0F9FF',
+          gray: '#F8FAFC'
+        },
         ramen: {
           red: '#D7263D',
           dark: '#0B0A0A',
@@ -17,6 +23,9 @@ export default {
         }
       },
       fontFamily: {
+        'inter': ['Inter', 'system-ui', 'sans-serif'],
+        'outfit': ['Outfit', 'sans-serif'],
+        'dancing': ['Dancing Script', 'cursive'],
         'pretendard': ['Pretendard', 'system-ui', 'sans-serif'],
         'noto-kr': ['Noto Serif KR', 'serif']
       },
