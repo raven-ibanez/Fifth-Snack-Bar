@@ -9,7 +9,7 @@ interface MenuItemCardProps {
   updateQuantity?: (id: string, quantity: number) => void;
 }
 
-const SHOW_IMAGES = false;
+const SHOW_IMAGES = true;
 
 const MenuItemCard: React.FC<MenuItemCardProps> = ({
   item,
@@ -100,7 +100,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
       <div className={`bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group animate-scale-in border border-gray-100 ${!item.available ? 'opacity-60' : ''}`}>
         {/* Image Container with Badges */}
         {SHOW_IMAGES && (
-          <div className="relative h-56 bg-gradient-to-br from-gray-50 to-snack-accent/30">
+          <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-snack-accent/30">
             {item.image ? (
               <img
                 src={item.image}
@@ -143,7 +143,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
         )}
 
         {/* Content */}
-        <div className="p-6">
+        <div className="p-5">
           {/* Badges for Imageless Mode */}
           {!SHOW_IMAGES && (
             <div className="flex flex-wrap gap-2 mb-4">
@@ -166,15 +166,15 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
           )}
 
           <div className="flex items-start justify-between mb-2">
-            <h4 className="text-xl font-outfit font-black text-snack-dark leading-none uppercase tracking-tight">{item.name}</h4>
+            <h4 className="text-lg font-outfit font-black text-snack-dark leading-none uppercase tracking-tight">{item.name}</h4>
           </div>
 
-          <p className={`text-sm mb-6 leading-relaxed line-clamp-2 ${!item.available ? 'text-gray-400' : 'text-gray-500'}`}>
+          <p className={`text-sm mb-4 leading-relaxed line-clamp-2 ${!item.available ? 'text-gray-400' : 'text-gray-500'}`}>
             {item.description}
           </p>
 
           {/* Pricing Section */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-4">
             <div className="flex-1">
               {item.isOnDiscount && item.discountPrice ? (
                 <div className="flex flex-col">

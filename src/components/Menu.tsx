@@ -92,16 +92,16 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems, updateQuan
                 <h3 className="text-3xl font-noto font-medium text-black">{category.name}</h3>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {categoryItems.map((item) => {
                   const cartItem = cartItems.find(cartItem => cartItem.id === item.id);
                   return (
                     <MenuItemCard
                       key={item.id}
                       item={item}
-                      onAddToCart={addToCart}
-                      quantity={cartItem?.quantity || 0}
-                      onUpdateQuantity={updateQuantity}
+                      onAddToCart={addToCart as any}
+                      cartItem={cartItem}
+                      updateQuantity={updateQuantity}
                     />
                   );
                 })}
