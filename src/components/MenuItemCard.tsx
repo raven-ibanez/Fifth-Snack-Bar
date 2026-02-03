@@ -143,7 +143,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
         )}
 
         {/* Content */}
-        <div className="p-5">
+        <div className="p-3 sm:p-5 flex flex-col h-full">
           {/* Badges for Imageless Mode */}
           {!SHOW_IMAGES && (
             <div className="flex flex-wrap gap-2 mb-4">
@@ -166,10 +166,10 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
           )}
 
           <div className="flex items-start justify-between mb-2">
-            <h4 className="text-lg font-outfit font-black text-snack-dark leading-none uppercase tracking-tight">{item.name}</h4>
+            <h4 className="text-sm sm:text-lg font-outfit font-black text-snack-dark leading-tight uppercase tracking-tight line-clamp-2">{item.name}</h4>
           </div>
 
-          <p className={`text-sm mb-4 leading-relaxed line-clamp-2 ${!item.available ? 'text-gray-400' : 'text-gray-500'}`}>
+          <p className={`text-[10px] sm:text-sm mb-3 sm:mb-4 leading-relaxed line-clamp-2 ${!item.available ? 'text-gray-400' : 'text-gray-500'}`}>
             {item.description}
           </p>
 
@@ -178,15 +178,15 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
             <div className="flex-1">
               {item.isOnDiscount && item.discountPrice ? (
                 <div className="flex flex-col">
-                  <span className="text-lg font-outfit font-black text-snack-blue uppercase leading-none">
+                  <span className="text-base sm:text-lg font-outfit font-black text-snack-blue uppercase leading-none">
                     ₱{item.discountPrice.toFixed(2)}
                   </span>
-                  <span className="text-xs text-gray-400 line-through font-bold">
+                  <span className="text-[10px] sm:text-xs text-gray-400 line-through font-bold">
                     ₱{item.basePrice.toFixed(2)}
                   </span>
                 </div>
               ) : (
-                <div className="text-lg font-outfit font-black text-snack-dark uppercase leading-none">
+                <div className="text-base sm:text-lg font-outfit font-black text-snack-dark uppercase leading-none">
                   ₱{item.basePrice.toFixed(2)}
                 </div>
               )}
@@ -195,30 +195,30 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
             {/* Action Buttons */}
             <div className="flex-shrink-0">
               {!item.available ? (
-                <div className="h-11 px-6 flex items-center justify-center bg-gray-100 text-gray-400 rounded-xl font-outfit font-bold text-xs uppercase tracking-widest cursor-not-allowed">
+                <div className="h-8 sm:h-11 px-3 sm:px-6 flex items-center justify-center bg-gray-100 text-gray-400 rounded-lg sm:rounded-xl font-outfit font-bold text-[10px] sm:text-xs uppercase tracking-widest cursor-not-allowed">
                   Sold Out
                 </div>
               ) : quantity === 0 ? (
                 <button
                   onClick={handleAddToCart}
-                  className="h-11 px-8 rounded-xl bg-snack-blue text-white font-outfit font-bold text-xs uppercase tracking-widest hover:bg-snack-dark transition-all duration-300 transform active:scale-95 shadow-lg shadow-snack-blue/20"
+                  className="h-8 sm:h-11 px-4 sm:px-8 rounded-lg sm:rounded-xl bg-snack-blue text-white font-outfit font-bold text-[10px] sm:text-xs uppercase tracking-widest hover:bg-snack-dark transition-all duration-300 transform active:scale-95 shadow-lg shadow-snack-blue/20"
                 >
                   {item.variations?.length || item.addOns?.length ? 'Options' : 'Order'}
                 </button>
               ) : (
-                <div className="h-11 flex items-center bg-snack-accent rounded-xl border-2 border-snack-blue/10 px-1">
+                <div className="h-8 sm:h-11 flex items-center bg-snack-accent rounded-lg sm:rounded-xl border border-snack-blue/10 px-1">
                   <button
                     onClick={handleDecrement}
-                    className="p-2 hover:bg-white rounded-lg transition-all duration-200 text-snack-blue"
+                    className="p-1 sm:p-2 hover:bg-white rounded-md sm:rounded-lg transition-all duration-200 text-snack-blue"
                   >
-                    <Minus className="h-4 w-4 stroke-[3]" />
+                    <Minus className="h-3 w-3 sm:h-4 sm:w-4 stroke-[3]" />
                   </button>
-                  <span className="font-outfit font-black text-snack-dark min-w-[32px] text-center text-sm">{quantity}</span>
+                  <span className="font-outfit font-black text-snack-dark min-w-[24px] sm:min-w-[32px] text-center text-xs sm:text-sm">{quantity}</span>
                   <button
                     onClick={handleIncrement}
-                    className="p-2 hover:bg-white rounded-lg transition-all duration-200 text-snack-blue"
+                    className="p-1 sm:p-2 hover:bg-white rounded-md sm:rounded-lg transition-all duration-200 text-snack-blue"
                   >
-                    <Plus className="h-4 w-4 stroke-[3]" />
+                    <Plus className="h-3 w-3 sm:h-4 sm:w-4 stroke-[3]" />
                   </button>
                 </div>
               )}
@@ -236,141 +236,143 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
       </div>
 
       {/* Customization Modal */}
-      {showCustomization && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl border-4 border-snack-blue/20">
-            <div className="sticky top-0 bg-white border-b border-gray-100 p-8 flex items-center justify-between rounded-t-2xl">
-              <div>
-                <h3 className="text-2xl font-outfit font-black text-snack-dark uppercase tracking-tight">Customize</h3>
-                <p className="text-sm text-gray-400 font-medium">{item.name}</p>
-              </div>
-              <button
-                onClick={() => setShowCustomization(false)}
-                className="p-2 hover:bg-snack-accent text-snack-blue rounded-full transition-colors duration-200"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </div>
-
-            <div className="p-8">
-              {/* Size Variations */}
-              {item.variations && item.variations.length > 0 && (
-                <div className="mb-8">
-                  <h4 className="font-outfit font-black text-snack-dark uppercase tracking-widest text-xs mb-4">Select Size</h4>
-                  <div className="grid grid-cols-1 gap-2">
-                    {item.variations.map((variation) => (
-                      <label
-                        key={variation.id}
-                        className={`flex items-center justify-between p-4 border-2 rounded-2xl cursor-pointer transition-all duration-300 ${selectedVariation?.id === variation.id
-                          ? 'border-snack-blue bg-snack-accent'
-                          : 'border-gray-50 hover:border-snack-blue/30 hover:bg-gray-50'
-                          }`}
-                      >
-                        <div className="flex items-center space-x-4">
-                          <input
-                            type="radio"
-                            name="variation"
-                            checked={selectedVariation?.id === variation.id}
-                            onChange={() => setSelectedVariation(variation)}
-                            className="w-5 h-5 text-snack-blue focus:ring-snack-blue bg-white border-gray-300"
-                          />
-                          <span className="font-outfit font-bold text-snack-dark uppercase">{variation.name}</span>
-                        </div>
-                        <span className="font-outfit font-black text-snack-blue">
-                          ₱{((item.effectivePrice || item.basePrice) + (variation.price || 0)).toFixed(2)}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
+      {
+        showCustomization && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl border-4 border-snack-blue/20">
+              <div className="sticky top-0 bg-white border-b border-gray-100 p-8 flex items-center justify-between rounded-t-2xl">
+                <div>
+                  <h3 className="text-2xl font-outfit font-black text-snack-dark uppercase tracking-tight">Customize</h3>
+                  <p className="text-sm text-gray-400 font-medium">{item.name}</p>
                 </div>
-              )}
+                <button
+                  onClick={() => setShowCustomization(false)}
+                  className="p-2 hover:bg-snack-accent text-snack-blue rounded-full transition-colors duration-200"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
 
-              {/* Add-ons */}
-              {groupedAddOns && Object.keys(groupedAddOns).length > 0 && (
-                <div className="mb-8">
-                  <h4 className="font-outfit font-black text-snack-dark uppercase tracking-widest text-xs mb-4">Add Extras</h4>
-                  {Object.entries(groupedAddOns).map(([category, addOns]) => (
-                    <div key={category} className="mb-6">
-                      <h5 className="text-[10px] font-outfit font-black text-gray-400 uppercase tracking-[0.2em] mb-3">
-                        {category.replace('-', ' ')}
-                      </h5>
-                      <div className="space-y-2">
-                        {addOns.map((addOn) => (
-                          <div
-                            key={addOn.id}
-                            className="flex items-center justify-between p-4 border border-gray-100 rounded-2xl hover:border-snack-blue/20 transition-all duration-200 bg-gray-50/50"
-                          >
-                            <div className="flex-1">
-                              <span className="font-outfit font-bold text-snack-dark uppercase text-sm">{addOn.name}</span>
-                              <div className="text-[10px] font-outfit font-black text-snack-blue/60 uppercase">
-                                {addOn.price > 0 ? `+ ₱${addOn.price.toFixed(2)}` : 'FREE'}
+              <div className="p-8">
+                {/* Size Variations */}
+                {item.variations && item.variations.length > 0 && (
+                  <div className="mb-8">
+                    <h4 className="font-outfit font-black text-snack-dark uppercase tracking-widest text-xs mb-4">Select Size</h4>
+                    <div className="grid grid-cols-1 gap-2">
+                      {item.variations.map((variation) => (
+                        <label
+                          key={variation.id}
+                          className={`flex items-center justify-between p-4 border-2 rounded-2xl cursor-pointer transition-all duration-300 ${selectedVariation?.id === variation.id
+                            ? 'border-snack-blue bg-snack-accent'
+                            : 'border-gray-50 hover:border-snack-blue/30 hover:bg-gray-50'
+                            }`}
+                        >
+                          <div className="flex items-center space-x-4">
+                            <input
+                              type="radio"
+                              name="variation"
+                              checked={selectedVariation?.id === variation.id}
+                              onChange={() => setSelectedVariation(variation)}
+                              className="w-5 h-5 text-snack-blue focus:ring-snack-blue bg-white border-gray-300"
+                            />
+                            <span className="font-outfit font-bold text-snack-dark uppercase">{variation.name}</span>
+                          </div>
+                          <span className="font-outfit font-black text-snack-blue">
+                            ₱{((item.effectivePrice || item.basePrice) + (variation.price || 0)).toFixed(2)}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Add-ons */}
+                {groupedAddOns && Object.keys(groupedAddOns).length > 0 && (
+                  <div className="mb-8">
+                    <h4 className="font-outfit font-black text-snack-dark uppercase tracking-widest text-xs mb-4">Add Extras</h4>
+                    {Object.entries(groupedAddOns).map(([category, addOns]) => (
+                      <div key={category} className="mb-6">
+                        <h5 className="text-[10px] font-outfit font-black text-gray-400 uppercase tracking-[0.2em] mb-3">
+                          {category.replace('-', ' ')}
+                        </h5>
+                        <div className="space-y-2">
+                          {addOns.map((addOn) => (
+                            <div
+                              key={addOn.id}
+                              className="flex items-center justify-between p-4 border border-gray-100 rounded-2xl hover:border-snack-blue/20 transition-all duration-200 bg-gray-50/50"
+                            >
+                              <div className="flex-1">
+                                <span className="font-outfit font-bold text-snack-dark uppercase text-sm">{addOn.name}</span>
+                                <div className="text-[10px] font-outfit font-black text-snack-blue/60 uppercase">
+                                  {addOn.price > 0 ? `+ ₱${addOn.price.toFixed(2)}` : 'FREE'}
+                                </div>
+                              </div>
+
+                              <div className="flex items-center space-x-2">
+                                {selectedAddOns.find(a => a.id === addOn.id) ? (
+                                  <div className="flex items-center bg-white rounded-xl p-1 border border-snack-blue/10">
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        const current = selectedAddOns.find(a => a.id === addOn.id);
+                                        updateAddOnQuantity(addOn, (current?.quantity || 1) - 1);
+                                      }}
+                                      className="p-1.5 hover:bg-snack-accent text-snack-blue rounded-lg transition-colors duration-200"
+                                    >
+                                      <Minus className="h-3 w-3 stroke-[3]" />
+                                    </button>
+                                    <span className="font-outfit font-black text-snack-dark min-w-[24px] text-center text-xs">
+                                      {selectedAddOns.find(a => a.id === addOn.id)?.quantity || 0}
+                                    </span>
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        const current = selectedAddOns.find(a => a.id === addOn.id);
+                                        updateAddOnQuantity(addOn, (current?.quantity || 0) + 1);
+                                      }}
+                                      className="p-1.5 hover:bg-snack-accent text-snack-blue rounded-lg transition-colors duration-200"
+                                    >
+                                      <Plus className="h-3 w-3 stroke-[3]" />
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <button
+                                    type="button"
+                                    onClick={() => updateAddOnQuantity(addOn, 1)}
+                                    className="h-9 px-4 bg-snack-blue text-white rounded-xl hover:bg-snack-dark transition-all duration-300 text-[10px] font-outfit font-black uppercase tracking-widest shadow-lg shadow-snack-blue/20"
+                                  >
+                                    ADD
+                                  </button>
+                                )}
                               </div>
                             </div>
-
-                            <div className="flex items-center space-x-2">
-                              {selectedAddOns.find(a => a.id === addOn.id) ? (
-                                <div className="flex items-center bg-white rounded-xl p-1 border border-snack-blue/10">
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      const current = selectedAddOns.find(a => a.id === addOn.id);
-                                      updateAddOnQuantity(addOn, (current?.quantity || 1) - 1);
-                                    }}
-                                    className="p-1.5 hover:bg-snack-accent text-snack-blue rounded-lg transition-colors duration-200"
-                                  >
-                                    <Minus className="h-3 w-3 stroke-[3]" />
-                                  </button>
-                                  <span className="font-outfit font-black text-snack-dark min-w-[24px] text-center text-xs">
-                                    {selectedAddOns.find(a => a.id === addOn.id)?.quantity || 0}
-                                  </span>
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      const current = selectedAddOns.find(a => a.id === addOn.id);
-                                      updateAddOnQuantity(addOn, (current?.quantity || 0) + 1);
-                                    }}
-                                    className="p-1.5 hover:bg-snack-accent text-snack-blue rounded-lg transition-colors duration-200"
-                                  >
-                                    <Plus className="h-3 w-3 stroke-[3]" />
-                                  </button>
-                                </div>
-                              ) : (
-                                <button
-                                  type="button"
-                                  onClick={() => updateAddOnQuantity(addOn, 1)}
-                                  className="h-9 px-4 bg-snack-blue text-white rounded-xl hover:bg-snack-dark transition-all duration-300 text-[10px] font-outfit font-black uppercase tracking-widest shadow-lg shadow-snack-blue/20"
-                                >
-                                  ADD
-                                </button>
-                              )}
-                            </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+                    ))}
+                  </div>
+                )}
 
-              {/* Price Summary */}
-              <div className="border-t border-gray-100 pt-6 mb-8">
-                <div className="flex items-center justify-between">
-                  <span className="font-outfit font-black text-gray-400 uppercase tracking-widest text-[10px]">Total Price</span>
-                  <span className="text-3xl font-outfit font-black text-snack-blue">₱{calculatePrice().toFixed(2)}</span>
+                {/* Price Summary */}
+                <div className="border-t border-gray-100 pt-6 mb-8">
+                  <div className="flex items-center justify-between">
+                    <span className="font-outfit font-black text-gray-400 uppercase tracking-widest text-[10px]">Total Price</span>
+                    <span className="text-3xl font-outfit font-black text-snack-blue">₱{calculatePrice().toFixed(2)}</span>
+                  </div>
                 </div>
+
+                <button
+                  onClick={handleCustomizedAddToCart}
+                  className="w-full h-16 bg-snack-dark text-white rounded-2xl hover:bg-snack-blue hover:scale-[1.02] transition-all duration-300 font-outfit font-black uppercase tracking-widest flex items-center justify-center space-x-3 shadow-xl active:scale-95"
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  <span>Add to Order</span>
+                </button>
               </div>
-
-              <button
-                onClick={handleCustomizedAddToCart}
-                className="w-full h-16 bg-snack-dark text-white rounded-2xl hover:bg-snack-blue hover:scale-[1.02] transition-all duration-300 font-outfit font-black uppercase tracking-widest flex items-center justify-center space-x-3 shadow-xl active:scale-95"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                <span>Add to Order</span>
-              </button>
             </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </>
   );
 };

@@ -25,13 +25,13 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
               <img
                 src={siteSettings?.site_logo || "/logo.jpg"}
                 alt={siteSettings?.site_name || "Fifth Snack Bar"}
-                className="w-10 h-10 rounded-full object-cover ring-2 ring-snack-blue shadow-sm"
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover ring-2 ring-snack-blue shadow-sm"
                 onError={(e) => {
                   e.currentTarget.src = "/logo.jpg";
                 }}
               />
             )}
-            <h1 className="text-2xl font-outfit font-bold tracking-tight">
+            <h1 className="text-lg sm:text-2xl font-outfit font-bold tracking-tight">
               {loading ? (
                 <div className="w-24 h-6 bg-gray-200 rounded animate-pulse" />
               ) : (

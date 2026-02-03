@@ -111,42 +111,42 @@ Please confirm this order to proceed. Thank you for choosing Fifth Snack Bar! �
   if (step === 'details') {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="flex items-center mb-10">
+        <div className="flex items-center mb-6 sm:mb-10">
           <button
             onClick={onBack}
-            className="flex items-center space-x-2 text-snack-blue hover:text-snack-dark transition-colors duration-200 font-outfit font-bold uppercase text-xs tracking-widest"
+            className="flex items-center space-x-2 text-snack-blue hover:text-snack-dark transition-colors duration-200 font-outfit font-bold uppercase text-[10px] sm:text-xs tracking-widest"
           >
             <ArrowLeft className="h-4 w-4 stroke-[3]" />
-            <span>Cart</span>
+            <span className="hidden sm:inline">Cart</span>
           </button>
-          <h1 className="text-4xl font-outfit font-black text-snack-dark uppercase tracking-tighter ml-8">Confirm Details</h1>
+          <h1 className="text-2xl sm:text-4xl font-outfit font-black text-snack-dark uppercase tracking-tighter ml-4 sm:ml-8">Confirm Details</h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Order Summary Column */}
           <div className="space-y-8 order-2 lg:order-1">
-            <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
-              <h2 className="text-2xl font-outfit font-black text-snack-dark uppercase tracking-tight mb-8">Summary</h2>
+            <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 sm:p-8">
+              <h2 className="text-xl sm:text-2xl font-outfit font-black text-snack-dark uppercase tracking-tight mb-6 sm:mb-8">Summary</h2>
 
-              <div className="space-y-4 mb-8">
+              <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                 {cartItems.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between py-4 border-b border-gray-50 last:border-0">
+                  <div key={item.id} className="flex items-center justify-between py-3 sm:py-4 border-b border-gray-50 last:border-0">
                     <div className="flex-1 pr-4">
-                      <h4 className="font-outfit font-bold text-snack-dark uppercase text-sm leading-tight">{item.name}</h4>
+                      <h4 className="font-outfit font-bold text-snack-dark uppercase text-xs sm:text-sm leading-tight">{item.name}</h4>
                       {item.selectedVariation && (
                         <span className="text-[10px] font-outfit font-black text-snack-blue uppercase tracking-widest">{item.selectedVariation.name}</span>
                       )}
-                      <p className="text-[10px] font-outfit font-medium text-gray-400 uppercase mt-1">₱{item.totalPrice.toFixed(2)} × {item.quantity}</p>
+                      <p className="text-[8px] sm:text-[10px] font-outfit font-medium text-gray-400 uppercase mt-1">₱{item.totalPrice.toFixed(2)} × {item.quantity}</p>
                     </div>
-                    <span className="font-outfit font-black text-snack-dark text-lg tracking-tighter">₱{(item.totalPrice * item.quantity).toFixed(2)}</span>
+                    <span className="font-outfit font-black text-snack-dark text-base sm:text-lg tracking-tighter">₱{(item.totalPrice * item.quantity).toFixed(2)}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="bg-snack-accent rounded-2xl p-6 border border-snack-blue/5">
+              <div className="bg-snack-accent rounded-2xl p-4 sm:p-6 border border-snack-blue/5">
                 <div className="flex items-center justify-between">
-                  <span className="font-outfit font-bold text-snack-blue uppercase tracking-widest text-xs">Total to pay</span>
-                  <span className="text-4xl font-outfit font-black text-snack-dark tracking-tighter">₱{totalPrice.toFixed(2)}</span>
+                  <span className="font-outfit font-bold text-snack-blue uppercase tracking-widest text-[10px] sm:text-xs">Total to pay</span>
+                  <span className="text-3xl sm:text-4xl font-outfit font-black text-snack-dark tracking-tighter">₱{totalPrice.toFixed(2)}</span>
                 </div>
               </div>
             </div>
