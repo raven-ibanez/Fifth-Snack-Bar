@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowLeft, Clock, Plus, Minus, CreditCard, MapPin, User, Phone, MessageSquare } from 'lucide-react';
 import { CartItem, PaymentMethod, ServiceType } from '../types';
 import { usePaymentMethods } from '../hooks/usePaymentMethods';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 
 interface CheckoutProps {
   cartItems: CartItem[];
@@ -11,6 +12,7 @@ interface CheckoutProps {
 
 const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) => {
   const { paymentMethods } = usePaymentMethods();
+  const { siteSettings } = useSiteSettings();
   const [step, setStep] = useState<'details' | 'payment'>('details');
   const [customerName, setCustomerName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
@@ -35,6 +37,22 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
       setPaymentMethod(paymentMethods[0].id as PaymentMethod);
     }
   }, [paymentMethods, paymentMethod]);
+
+  // Handle service type availability
+  React.useEffect(() => {
+    if (siteSettings) {
+      if (serviceType === 'dine-in' && !siteSettings.enable_dine_in) {
+        if (siteSettings.enable_pickup) setServiceType('pickup');
+        else if (siteSettings.enable_delivery) setServiceType('delivery');
+      } else if (serviceType === 'pickup' && !siteSettings.enable_pickup) {
+        if (siteSettings.enable_dine_in) setServiceType('dine-in');
+        else if (siteSettings.enable_delivery) setServiceType('delivery');
+      } else if (serviceType === 'delivery' && !siteSettings.enable_delivery) {
+        if (siteSettings.enable_dine_in) setServiceType('dine-in');
+        else if (siteSettings.enable_pickup) setServiceType('pickup');
+      }
+    }
+  }, [siteSettings, serviceType]);
 
   const selectedPaymentMethod = paymentMethods.find(method => method.id === paymentMethod);
 
@@ -201,12 +219,12 @@ Please confirm this order to proceed. Thank you for choosing Fifth Snack Bar! �
               {/* Service Type */}
               <div>
                 <label className="block text-[10px] font-outfit font-black text-gray-400 uppercase tracking-widest mb-4">Choose your vibe</label>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
-                    { value: 'dine-in', label: 'Dine In', icon: '🪑' },
-                    { value: 'pickup', label: 'Pickup', icon: '🚶' },
-                    { value: 'delivery', label: 'Delivery', icon: '🛵' }
-                  ].map((option) => (
+                    { value: 'dine-in', label: 'Dine In', icon: '🪑', enabled: siteSettings?.enable_dine_in ?? true },
+                    { value: 'pickup', label: 'Pickup', icon: '🚶', enabled: siteSettings?.enable_pickup ?? true },
+                    { value: 'delivery', label: 'Delivery', icon: '🛵', enabled: siteSettings?.enable_delivery ?? true }
+                  ].filter(opt => opt.enabled).map((option) => (
                     <button
                       key={option.value}
                       type="button"

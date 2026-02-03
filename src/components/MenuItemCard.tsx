@@ -143,7 +143,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
         )}
 
         {/* Content */}
-        <div className="p-3 sm:p-5 flex flex-col h-full">
+        <div className="p-2 sm:p-5 flex flex-col h-full">
           {/* Badges for Imageless Mode */}
           {!SHOW_IMAGES && (
             <div className="flex flex-wrap gap-2 mb-4">
@@ -166,27 +166,27 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
           )}
 
           <div className="flex items-start justify-between mb-2">
-            <h4 className="text-sm sm:text-lg font-outfit font-black text-snack-dark leading-tight uppercase tracking-tight line-clamp-2">{item.name}</h4>
+            <h4 className="text-[13px] sm:text-lg font-outfit font-black text-snack-dark leading-tight uppercase tracking-tight line-clamp-2">{item.name}</h4>
           </div>
 
-          <p className={`text-[10px] sm:text-sm mb-3 sm:mb-4 leading-relaxed line-clamp-2 ${!item.available ? 'text-gray-400' : 'text-gray-500'}`}>
+          <p className={`text-[9px] sm:text-sm mb-2 sm:mb-4 leading-relaxed line-clamp-2 ${!item.available ? 'text-gray-400' : 'text-gray-500'}`}>
             {item.description}
           </p>
 
           {/* Pricing Section */}
           <div className="flex items-center justify-between mb-4">
-            <div className="flex-1">
+            <div className="flex-1 min-w-0 pr-1">
               {item.isOnDiscount && item.discountPrice ? (
                 <div className="flex flex-col">
-                  <span className="text-base sm:text-lg font-outfit font-black text-snack-blue uppercase leading-none">
+                  <span className="text-sm sm:text-lg font-outfit font-black text-snack-blue uppercase leading-none truncate">
                     ₱{item.discountPrice.toFixed(2)}
                   </span>
-                  <span className="text-[10px] sm:text-xs text-gray-400 line-through font-bold">
+                  <span className="text-[8px] sm:text-xs text-gray-400 line-through font-bold">
                     ₱{item.basePrice.toFixed(2)}
                   </span>
                 </div>
               ) : (
-                <div className="text-base sm:text-lg font-outfit font-black text-snack-dark uppercase leading-none">
+                <div className="text-sm sm:text-lg font-outfit font-black text-snack-dark uppercase leading-none truncate">
                   ₱{item.basePrice.toFixed(2)}
                 </div>
               )}
@@ -195,28 +195,28 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
             {/* Action Buttons */}
             <div className="flex-shrink-0">
               {!item.available ? (
-                <div className="h-8 sm:h-11 px-3 sm:px-6 flex items-center justify-center bg-gray-100 text-gray-400 rounded-lg sm:rounded-xl font-outfit font-bold text-[10px] sm:text-xs uppercase tracking-widest cursor-not-allowed">
+                <div className="h-7 sm:h-11 px-2 sm:px-6 flex items-center justify-center bg-gray-100 text-gray-400 rounded-lg sm:rounded-xl font-outfit font-bold text-[9px] sm:text-xs uppercase tracking-widest cursor-not-allowed">
                   Sold Out
                 </div>
               ) : quantity === 0 ? (
                 <button
                   onClick={handleAddToCart}
-                  className="h-8 sm:h-11 px-4 sm:px-8 rounded-lg sm:rounded-xl bg-snack-blue text-white font-outfit font-bold text-[10px] sm:text-xs uppercase tracking-widest hover:bg-snack-dark transition-all duration-300 transform active:scale-95 shadow-lg shadow-snack-blue/20"
+                  className="h-7 sm:h-11 px-2 sm:px-8 rounded-lg sm:rounded-xl bg-snack-blue text-white font-outfit font-bold text-[9px] sm:text-xs uppercase tracking-widest hover:bg-snack-dark transition-all duration-300 transform active:scale-95 shadow-lg shadow-snack-blue/20"
                 >
                   {item.variations?.length || item.addOns?.length ? 'Options' : 'Order'}
                 </button>
               ) : (
-                <div className="h-8 sm:h-11 flex items-center bg-snack-accent rounded-lg sm:rounded-xl border border-snack-blue/10 px-1">
+                <div className="h-7 sm:h-11 flex items-center bg-snack-accent rounded-lg sm:rounded-xl border border-snack-blue/10 px-0.5">
                   <button
                     onClick={handleDecrement}
-                    className="p-1 sm:p-2 hover:bg-white rounded-md sm:rounded-lg transition-all duration-200 text-snack-blue"
+                    className="p-0.5 sm:p-2 hover:bg-white rounded-md sm:rounded-lg transition-all duration-200 text-snack-blue"
                   >
                     <Minus className="h-3 w-3 sm:h-4 sm:w-4 stroke-[3]" />
                   </button>
-                  <span className="font-outfit font-black text-snack-dark min-w-[24px] sm:min-w-[32px] text-center text-xs sm:text-sm">{quantity}</span>
+                  <span className="font-outfit font-black text-snack-dark min-w-[20px] sm:min-w-[32px] text-center text-xs sm:text-sm">{quantity}</span>
                   <button
                     onClick={handleIncrement}
-                    className="p-1 sm:p-2 hover:bg-white rounded-md sm:rounded-lg transition-all duration-200 text-snack-blue"
+                    className="p-0.5 sm:p-2 hover:bg-white rounded-md sm:rounded-lg transition-all duration-200 text-snack-blue"
                   >
                     <Plus className="h-3 w-3 sm:h-4 sm:w-4 stroke-[3]" />
                   </button>

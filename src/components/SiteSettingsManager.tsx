@@ -11,7 +11,10 @@ const SiteSettingsManager: React.FC = () => {
     site_name: '',
     site_description: '',
     currency: '',
-    currency_code: ''
+    currency_code: '',
+    enable_dine_in: true,
+    enable_pickup: true,
+    enable_delivery: true
   });
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string>('');
@@ -22,7 +25,10 @@ const SiteSettingsManager: React.FC = () => {
         site_name: siteSettings.site_name,
         site_description: siteSettings.site_description,
         currency: siteSettings.currency,
-        currency_code: siteSettings.currency_code
+        currency_code: siteSettings.currency_code,
+        enable_dine_in: siteSettings.enable_dine_in,
+        enable_pickup: siteSettings.enable_pickup,
+        enable_delivery: siteSettings.enable_delivery
       });
       setLogoPreview(siteSettings.site_logo);
     }
@@ -33,6 +39,14 @@ const SiteSettingsManager: React.FC = () => {
     setFormData(prev => ({
       ...prev,
       [name]: value
+    }));
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: checked
     }));
   };
 
@@ -51,10 +65,10 @@ const SiteSettingsManager: React.FC = () => {
   const handleSave = async () => {
     try {
       let logoUrl = logoPreview;
-      
+
       // Upload new logo if selected
       if (logoFile) {
-        const uploadedUrl = await uploadImage(logoFile, 'site-logo');
+        const uploadedUrl = await uploadImage(logoFile);
         logoUrl = uploadedUrl;
       }
 
@@ -64,7 +78,10 @@ const SiteSettingsManager: React.FC = () => {
         site_description: formData.site_description,
         currency: formData.currency,
         currency_code: formData.currency_code,
-        site_logo: logoUrl
+        site_logo: logoUrl,
+        enable_dine_in: formData.enable_dine_in,
+        enable_pickup: formData.enable_pickup,
+        enable_delivery: formData.enable_delivery
       });
 
       setIsEditing(false);
@@ -80,7 +97,10 @@ const SiteSettingsManager: React.FC = () => {
         site_name: siteSettings.site_name,
         site_description: siteSettings.site_description,
         currency: siteSettings.currency,
-        currency_code: siteSettings.currency_code
+        currency_code: siteSettings.currency_code,
+        enable_dine_in: siteSettings.enable_dine_in,
+        enable_pickup: siteSettings.enable_pickup,
+        enable_delivery: siteSettings.enable_delivery
       });
       setLogoPreview(siteSettings.site_logo);
     }
@@ -248,6 +268,81 @@ const SiteSettingsManager: React.FC = () => {
             ) : (
               <p className="text-lg font-medium text-black">{siteSettings?.currency_code}</p>
             )}
+          </div>
+        </div>
+
+        {/* Service Type Settings */}
+        <div className="pt-6 border-t border-gray-100">
+          <h3 className="text-lg font-medium text-black mb-4">Service Types</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className={`p-4 rounded-xl border transition-all duration-300 ${isEditing ? 'bg-gray-50 border-gray-100' : (siteSettings?.enable_dine_in ? 'bg-green-50/50 border-green-100' : 'bg-red-50/50 border-red-100')}`}>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-bold text-gray-700 uppercase tracking-tight">Dine In</span>
+                {isEditing ? (
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="enable_dine_in"
+                      checked={formData.enable_dine_in}
+                      onChange={handleCheckboxChange}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                  </label>
+                ) : (
+                  <span className={`px-2 py-1 rounded-full text-[10px] font-black uppercase ${siteSettings?.enable_dine_in ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    {siteSettings?.enable_dine_in ? 'Enabled' : 'Disabled'}
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-gray-500 font-medium">Allow customers to order for dine-in.</p>
+            </div>
+
+            <div className={`p-4 rounded-xl border transition-all duration-300 ${isEditing ? 'bg-gray-50 border-gray-100' : (siteSettings?.enable_pickup ? 'bg-green-50/50 border-green-100' : 'bg-red-50/50 border-red-100')}`}>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-bold text-gray-700 uppercase tracking-tight">Pickup</span>
+                {isEditing ? (
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="enable_pickup"
+                      checked={formData.enable_pickup}
+                      onChange={handleCheckboxChange}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                  </label>
+                ) : (
+                  <span className={`px-2 py-1 rounded-full text-[10px] font-black uppercase ${siteSettings?.enable_pickup ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    {siteSettings?.enable_pickup ? 'Enabled' : 'Disabled'}
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-gray-500 font-medium">Allow customers to order for pickup.</p>
+            </div>
+
+            <div className={`p-4 rounded-xl border transition-all duration-300 ${isEditing ? 'bg-gray-50 border-gray-100' : (siteSettings?.enable_delivery ? 'bg-green-50/50 border-green-100' : 'bg-red-50/50 border-red-100')}`}>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-bold text-gray-700 uppercase tracking-tight">Delivery</span>
+                {isEditing ? (
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="enable_delivery"
+                      checked={formData.enable_delivery}
+                      onChange={handleCheckboxChange}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                  </label>
+                ) : (
+                  <span className={`px-2 py-1 rounded-full text-[10px] font-black uppercase ${siteSettings?.enable_delivery ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    {siteSettings?.enable_delivery ? 'Enabled' : 'Disabled'}
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-gray-500 font-medium">Allow customers to order for delivery.</p>
+            </div>
           </div>
         </div>
       </div>

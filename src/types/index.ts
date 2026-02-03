@@ -74,4 +74,7 @@ export interface SiteSettings {
   site_description: string;
   currency: string;
   currency_code: string;
+  enable_dine_in: boolean;
+  enable_pickup: boolean;
+  enable_delivery: boolean;
 }
