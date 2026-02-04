@@ -99,7 +99,7 @@ const Menu: React.FC<MenuProps> = ({ menuItems, addToCart, cartItems, updateQuan
                     <MenuItemCard
                       key={item.id}
                       item={item}
-                      onAddToCart={addToCart as any}
+                      onAddToCart={addToCart}
                       cartItem={cartItem}
                       updateQuantity={updateQuantity}
                     />

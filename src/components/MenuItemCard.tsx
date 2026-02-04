@@ -4,7 +4,7 @@ import { MenuItem, Variation, AddOn, CartItem } from '../types';
 
 interface MenuItemCardProps {
   item: MenuItem;
-  onAddToCart: (item: CartItem) => void;
+  onAddToCart: (item: MenuItem, quantity?: number, variation?: Variation, addOns?: AddOn[]) => void;
   cartItem?: CartItem;
   updateQuantity?: (id: string, quantity: number) => void;
 }
@@ -29,11 +29,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
     if ((item.variations && item.variations.length > 0) || (item.addOns && item.addOns.length > 0)) {
       setShowCustomization(true);
     } else {
-      onAddToCart({
-        ...item,
-        quantity: 1,
-        totalPrice: item.effectivePrice || item.basePrice
-      });
+      onAddToCart(item, 1);
     }
   };
 
@@ -49,13 +45,12 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
   };
 
   const handleCustomizedAddToCart = () => {
-    onAddToCart({
-      ...item,
-      quantity: 1,
-      selectedVariation: selectedVariation || undefined,
-      selectedAddOns: selectedAddOns.length > 0 ? selectedAddOns : undefined,
-      totalPrice: calculatePrice()
-    });
+    onAddToCart(
+      item,
+      1,
+      selectedVariation || undefined,
+      selectedAddOns.length > 0 ? selectedAddOns : undefined
+    );
     setShowCustomization(false);
     setSelectedAddOns([]);
   };
