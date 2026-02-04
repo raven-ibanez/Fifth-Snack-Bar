@@ -50,6 +50,11 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, totalPrice, onBack }) =>
       } else if (serviceType === 'delivery' && !siteSettings.enable_delivery) {
         if (siteSettings.enable_dine_in) setServiceType('dine-in');
         else if (siteSettings.enable_pickup) setServiceType('pickup');
+        else if (siteSettings.enable_take_out) setServiceType('take-out');
+      } else if (serviceType === 'take-out' && !siteSettings.enable_take_out) {
+        if (siteSettings.enable_dine_in) setServiceType('dine-in');
+        else if (siteSettings.enable_pickup) setServiceType('pickup');
+        else if (siteSettings.enable_delivery) setServiceType('delivery');
       }
     }
   }, [siteSettings, serviceType]);
@@ -124,7 +129,8 @@ Please confirm this order to proceed. Thank you for choosing Fifth Snack Bar! �
   const isDetailsValid = customerName && contactNumber &&
     (serviceType !== 'delivery' || address) &&
     (serviceType !== 'pickup' || (pickupTime !== 'custom' || customTime)) &&
-    (serviceType !== 'dine-in' || (partySize > 0 && dineInTime));
+    (serviceType !== 'dine-in' || (partySize > 0 && dineInTime)) &&
+    (serviceType !== 'take-out' || true); // Take out doesn't need extra fields for now
 
   if (step === 'details') {
     return (
@@ -222,6 +228,7 @@ Please confirm this order to proceed. Thank you for choosing Fifth Snack Bar! �
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
                     { value: 'dine-in', label: 'Dine In', icon: '🪑', enabled: siteSettings?.enable_dine_in ?? true },
+                    { value: 'take-out', label: 'Take Out', icon: '🛍️', enabled: siteSettings?.enable_take_out ?? true },
                     { value: 'pickup', label: 'Pickup', icon: '🚶', enabled: siteSettings?.enable_pickup ?? true },
                     { value: 'delivery', label: 'Delivery', icon: '🛵', enabled: siteSettings?.enable_delivery ?? true }
                   ].filter(opt => opt.enabled).map((option) => (

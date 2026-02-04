@@ -14,7 +14,8 @@ const SiteSettingsManager: React.FC = () => {
     currency_code: '',
     enable_dine_in: true,
     enable_pickup: true,
-    enable_delivery: true
+    enable_delivery: true,
+    enable_take_out: true
   });
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string>('');
@@ -28,7 +29,8 @@ const SiteSettingsManager: React.FC = () => {
         currency_code: siteSettings.currency_code,
         enable_dine_in: siteSettings.enable_dine_in,
         enable_pickup: siteSettings.enable_pickup,
-        enable_delivery: siteSettings.enable_delivery
+        enable_delivery: siteSettings.enable_delivery,
+        enable_take_out: siteSettings.enable_take_out
       });
       setLogoPreview(siteSettings.site_logo);
     }
@@ -81,7 +83,8 @@ const SiteSettingsManager: React.FC = () => {
         site_logo: logoUrl,
         enable_dine_in: formData.enable_dine_in,
         enable_pickup: formData.enable_pickup,
-        enable_delivery: formData.enable_delivery
+        enable_delivery: formData.enable_delivery,
+        enable_take_out: formData.enable_take_out
       });
 
       setIsEditing(false);
@@ -100,7 +103,8 @@ const SiteSettingsManager: React.FC = () => {
         currency_code: siteSettings.currency_code,
         enable_dine_in: siteSettings.enable_dine_in,
         enable_pickup: siteSettings.enable_pickup,
-        enable_delivery: siteSettings.enable_delivery
+        enable_delivery: siteSettings.enable_delivery,
+        enable_take_out: siteSettings.enable_take_out
       });
       setLogoPreview(siteSettings.site_logo);
     }
@@ -342,6 +346,29 @@ const SiteSettingsManager: React.FC = () => {
                 )}
               </div>
               <p className="text-[11px] text-gray-500 font-medium">Allow customers to order for delivery.</p>
+            </div>
+
+            <div className={`p-4 rounded-xl border transition-all duration-300 ${isEditing ? 'bg-gray-50 border-gray-100' : (siteSettings?.enable_take_out ? 'bg-green-50/50 border-green-100' : 'bg-red-50/50 border-red-100')}`}>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-bold text-gray-700 uppercase tracking-tight">Take Out</span>
+                {isEditing ? (
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="enable_take_out"
+                      checked={formData.enable_take_out}
+                      onChange={handleCheckboxChange}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                  </label>
+                ) : (
+                  <span className={`px-2 py-1 rounded-full text-[10px] font-black uppercase ${siteSettings?.enable_take_out ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    {siteSettings?.enable_take_out ? 'Enabled' : 'Disabled'}
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-gray-500 font-medium">Allow customers to order for take-out.</p>
             </div>
           </div>
         </div>

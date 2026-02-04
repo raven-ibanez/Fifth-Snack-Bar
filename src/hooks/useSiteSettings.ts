@@ -28,7 +28,8 @@ export const useSiteSettings = () => {
         currency_code: data.find(s => s.id === 'currency_code')?.value || 'PHP',
         enable_dine_in: data.find(s => s.id === 'enable_dine_in')?.value !== 'false', // Default to true
         enable_pickup: data.find(s => s.id === 'enable_pickup')?.value !== 'false',
-        enable_delivery: data.find(s => s.id === 'enable_delivery')?.value !== 'false'
+        enable_delivery: data.find(s => s.id === 'enable_delivery')?.value !== 'false',
+        enable_take_out: data.find(s => s.id === 'enable_take_out')?.value !== 'false'
       };
 
       setSiteSettings(settings);
@@ -64,12 +65,22 @@ export const useSiteSettings = () => {
     try {
       setError(null);
 
-      const updatePromises = Object.entries(updates).map(([key, value]) =>
-        supabase
+      const updatePromises = Object.entries(updates).map(([key, value]) => {
+        // Determine type based on key or value
+        let type: 'text' | 'image' | 'boolean' | 'number' = 'text';
+        if (typeof value === 'boolean') type = 'boolean';
+        else if (typeof value === 'number') type = 'number';
+        else if (key.includes('logo')) type = 'image';
+
+        return supabase
           .from('site_settings')
-          .update({ value: String(value) })
-          .eq('id', key)
-      );
+          .upsert({
+            id: key,
+            value: String(value),
+            type,
+            updated_at: new Date().toISOString()
+          });
+      });
 
       const results = await Promise.all(updatePromises);
 

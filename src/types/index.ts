@@ -44,7 +44,7 @@ export interface OrderData {
   items: CartItem[];
   customerName: string;
   contactNumber: string;
-  serviceType: 'dine-in' | 'pickup' | 'delivery';
+  serviceType: 'dine-in' | 'pickup' | 'delivery' | 'take-out';
   address?: string;
   pickupTime?: string;
   // Dine-in specific fields
@@ -57,7 +57,7 @@ export interface OrderData {
 }
 
 export type PaymentMethod = 'gcash' | 'maya' | 'bank-transfer';
-export type ServiceType = 'dine-in' | 'pickup' | 'delivery';
+export type ServiceType = 'dine-in' | 'pickup' | 'delivery' | 'take-out';
 
 // Site Settings Types
 export interface SiteSetting {
@@ -77,4 +77,5 @@ export interface SiteSettings {
   enable_dine_in: boolean;
   enable_pickup: boolean;
   enable_delivery: boolean;
+  enable_take_out: boolean;
 }
